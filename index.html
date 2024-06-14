@@ -46,8 +46,8 @@
     // Subject ID
     
     const subject_id = jsPsych.randomization.randomID(10);
-    const filename = filename; 
-    //jsPsych.data.addProperties({ID: subject_id});
+    //const filename = filename; 
+    jsPsych.data.addProperties({ID: subject_id});
 
     timeline.push({
         type: jsPsychFullscreen,
@@ -335,7 +335,7 @@
         type: jsPsychPipe,
         action: "save",
         experiment_id: "mFZyHqNtYTWQ",
-        filename: filename,
+        filename: `${subject_id}_block4.csv`,
         data_string: ()=>jsPsych.data.get().csv()
     };
 
