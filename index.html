@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>My experiment</title>
+    <script src="jspsych/jspsych.js"></script>
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-survey-html-form.js"></script>
+    <script src="jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="jspsych/plugin-html-slider-response.js"></script>
+    <script src="jspsych/plugin-survey-likert.js"></script>
+    <script src="jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="jspsych/plugin-fullscreen.js"></script>
+    <script src="jspsych/plugin-instructions.js"></script>
+    <script src="jspsych/stimuli.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/jspsych.css"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body></body>
+  <script>
+  
+  window.addEventListener('beforeunload', (event) => {
+    // Cancel the event as stated by the standard.
+        event.preventDefault();
+    // Chrome requires returnValue to be set.
+        event.returnValue = '';
+    });
+  
+ 
+    // initialize jsPsych
+    var jsPsych = initJsPsych({
+        show_progress_bar: true
+        }
+    );    
+    
+    const start_time = Date.now();
+    jsPsych.data.addProperties({Date: start_time});
+
+    // create timeline 
+    var timeline = [];
+
+    // Subject ID
+    
+    const subject_id = jsPsych.randomization.randomID(10);
+    //const filename = `${subject_id}.csv`; 
+    jsPsych.data.addProperties({ID: subject_id});
+
+    timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: true,
+        message: '<p style= "font-size:30px;"><strong>¡Bienvenido!</strong></p><p style= "font-size:20px;"></p>Los responsables de esta investigación<p><strong>¡AGRADECEN TU PARTICIPACIÓN!</strong> </p> Dr. Salvador Trejo Garcia (Universidad Autónoma de Baja California) <br>Dr. Luis Ángel Llamas Alonso (Universidad Autónoma de Baja California)</p>',
+        button_label: "Comenzar"
+    });
+
+    var consent = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p style="font-size:20px;"><strong>CONSENTIMIENTO INFORMADO</strong></p>' + '<div style="text-align: justify;">'+
+              '<p>Usted ha sido invitado a participar en el presente proyecto de investigación, el cual es desarrollado por la Facultad de Medicina y Psicología de la Universidad Autónoma de Baja California. <br>El propósito del presente estudio es ver cómo la práctica de videojuegos se relaciona con distintos patrones conductuales asociados con depresión, ansiedad y déficit de atención, en adultos con distintas edades y niveles educativos. Le pedimos participar en este estudio porque usted es un adulto mayor de 18 años y no presenta enfermedades cerebrales o problemas psiquiátricos, no usa drogas u otras sustancias como medicamentos que puedan alterar el funcionamiento de su cerebro durante el estudio. Si tiene problemas de vista, oído o movimiento, éstos están corregidos y/o se encuentran dentro de los parámetros funcionales para que no afecten su desempeño. Deberá acepar participar si entiende y está de acuerdo con lo que implica el estudio.</p>' +
+              '<p>Su participación tendrá una duración aproximada de 30 minutos. Si no tienes tiempo ahora, deja esta pestaña abierta o ingresa luego. <br> Esta consistirá en contestar un cuestionario sociodemográfico y una prueba de evaluación afectiva de palabras.</p>' +
+              '<p>Al aceptar mi participación soy consciente de que:</p>' +
+              '<ul><li>Este estudio no prevé repercusiones físicas, ni psicológicas.</li>' +
+              '<li>Los datos obtenidos serán usados sólo para fines de investigación.</li></ul>' +
+              '<p>Manifiesto mi libre decisión, consciente y voluntaria de aceptar participar en esta investigación.</p>',
+        choices: ['<strong>Acepto</strong>', 'No acepto'],
+        on_finish: function() {
+            var data = jsPsych.data.get().last(1).values()[0];
+            if(data.response== 1){
+                jsPsych.endExperiment('El experimento finalizó porque no aceptó los términos de participación. Puede cerrar el navegador.');
+            }
+      },
+      data:{stimulus:"Informed consent"}
+    }
+
+    timeline.push(consent); 
+   
+    var birthdate = {
+        type: jsPsychSurveyHtmlForm,
+        preamble: 'Fecha de nacimiento:',
+        html: '<p><input type="date" id="dob_1" name="dob_2" value="2000-02-29" required></p>',
+        button_label: "Continuar",
+        data:{stimulus:"Birthday"} 
+    }
+
+    timeline.push(birthdate); 
+    
+    var email = {
+  type: jsPsychSurveyText,
+  questions: [
+    {prompt: 'Correo electrónico'}
+    ]
+    }
+
+    timeline.push(email);
+
+    var demo_mex = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "¿Eres mexicano?", 
+            name: 'Mex', 
+            options: ['Sí', 'No'], 
+            required: true
+        }],
+        button_label: "Continuar",
+        data:{stimulus:"Mex"}
+    }
+
+  
+    timeline.push(demo_mex);
+    
+    var demo_esp = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "¿Tu lengua materna es el español?", 
+            name: 'Esp', 
+            options: ['Sí', 'No'], 
+            required: true
+        }],
+        button_label: "Continuar",
+        data:{stimulus:"Esp"}
+    }
+
+    timeline.push(demo_esp); 
+
+
+    var demo_sex = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "Sexo biológico:", 
+            name: 'Sex', 
+            options: ['Hombre', 'Mujer'], 
+            required: true
+        }],
+        button_label: "Continuar",
+        data:{stimulus:"Sex"}
+    }
+
+    timeline.push(demo_sex); 
+
+    var likert_scale_emotions = [
+        "Mucho menos que el promedio", 
+        "Menos que el promedio", 
+        "Poco menos que el promedio", 
+        "Igual que el promedio", 
+        "Poco más que el promedio",
+        "Más que el promedio",
+        "Mucho más que el promedio"
+    ];
+
+    var ses = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [
+            {
+            prompt: "Pensando en el jefe o jefa de hogar, ¿cuál fue el último año de estudios que aprobó en la escuela? Si tú eres el jefé o jefa de hogar, repite tu escolaridad", 
+            name: 'socio_schooling', 
+            options: ['No estudio',
+                    'Primaria Incompleta', 
+                    'Primaria Incompleta', 
+                    'Primaria Completa', 
+                    'Secundaria Incompleta',
+                    'Secundaria Completa',
+                    'Carrera comercial',
+                    'Carrera técnica',
+                    'Preparatoria Incompleta',
+                    'Preparatoria Completa',
+                    'Licenciatura Incompleta',
+                    'Licenciatura Completa',
+                    'Diplomado o maestría',
+                    'Doctorado'
+                ], 
+            required: true
+            }, 
+            {
+            prompt: "¿Cuántos baños completos con regadera y W.C. (excusado) hay en tu vivienda?", 
+            name: 'socio_bano', 
+            options: ['0', '1', '2 o más'], 
+            required: true
+            },
+            {
+            prompt: "¿Cuántos automóviles o camionetas tienen en su hogar, incluyendo camionetas cerradas, o con cabina o caja?", 
+            name: 'socio_autos', 
+            options: ['0', '1', '2 o más'], 
+            required: true
+            },
+            {
+            prompt: "Sin tomar en cuenta la conexión móvil que pudiera tener desde algún celular ¿este hogar cuenta con internet?", 
+            name: 'socio_bano', 
+            options: ['No tiene', 'Sí tiene'], 
+            required: true
+            },
+            {
+            prompt: "De todas las personas de 14 años o más que viven en el hogar, ¿cuántas trabajaron en el último mes?", 
+            name: 'socio_work', 
+            options: ['0', '1', '2','3','4 o más'], 
+            required: true
+            },
+            {
+            prompt: "En esta vivienda, ¿cuántos cuartos se usan para dormir, sin contar pasillos ni baños?", 
+            name: 'socio_rooms', 
+            options: ['0', '1', '2','3','4 o más'], 
+            required: true
+            }
+        ],
+        button_label: "Continuar",
+        data:{stimulus:'ses'}
+    };
+
+    timeline.push(ses);
+
+    var reasons_motivation = {
+        type: jsPsychSurveyLikert,
+        questions: [
+        {prompt: "Juego videojuegos para socializar con amigos y/o conocer gente nueva.", name: 'E_1', labels: likert_scale_emotions},
+        {prompt: "Cuando dispongo de tiempo libre, me inclino a jugar videojuegos.", name: 'E_2', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos porque requieren que me mantenga atento y responsivo.", name: 'E_3', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos, porque me generan una sensación placentera.", name: 'E_4', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos para cumplir objetivos y metas que me dan sensación de logro personal (ej. mejorar ranking, KD, trofeos, clasificación etc.)", name: 'E_5', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos para liberarme de algún malestar (ej. tristeza, enojo, estrés, ansiedad).", name: 'E_6', labels: likert_scale_emotions},
+        {prompt: "Práctico videojuegos porque me gusta competir con otros o conmigo mismo.", name: 'E_7', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos para ser parte de un equipo, dialogar, organizar estrategias y compartir la experiencia", name: 'E_8', labels: likert_scale_emotions},
+        {prompt: "Práctico videojuegos con el único objetivo de ganar, de lo contrario paso un mal rato.", name: 'E_9', labels: likert_scale_emotions},
+        {prompt: "Siento mucha frustración cuando yo, o un miembro de mi equipo comete un error que provoca que perdamos la partida de juego.", name: 'E_10', labels: likert_scale_emotions},
+        {prompt: "Práctico videojuegos con el objetivo de convertirme en profesional, ganar reputación y obtener beneficios monetarios.", name: 'E_11', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos por costumbre, aunque no me siento particularmente interesado.", name: 'E_12', labels: likert_scale_emotions},
+        {prompt: "A menudo me encuentro jugando videojuegos sin un motivo específico, simplemente por pasar el tiempo.", name: 'E_13', labels: likert_scale_emotions},
+        {prompt: "Juego videojuegos porque disfruto de los desafíos que me presentan.", name: 'E_14', labels: likert_scale_emotions},
+        {prompt: "Me siento emocionado al descubrir nuevas historias y mundos dentro de los videojuegos.", name: 'E_15', labels: likert_scale_emotions}
+        ],
+        randomize_question_order: false,
+        button_label: "Continuar",
+        data:{stimulus:"reasons_motivation"}
+    };
+
+    timeline.push(reasons_motivation);
+
+    var problems_VG = {
+        type: jsPsychSurveyLikert,
+        questions: [
+        {prompt: "Juego videojuegos por el tiempo que tenía planeado para la sesión..", name: 'DFVG_1', labels: likert_scale_emotions},
+        {prompt: "Puedo terminar una sesión de juego en el momento que decido..", name: 'DFVG_2', labels: likert_scale_emotions},
+        {prompt: "Equilibro bien el tiempo de juego con mis responsabilidades de trabajo y/o escuela..", name: 'DFVG_3', labels: likert_scale_emotions},
+        {prompt: "Equilibro bien el tiempo jugando videojuegos y pasarla con mis amigos..", name: 'DFVG_4', labels: likert_scale_emotions},
+        {prompt: "Equilibrio bien pasar tiempo tanto jugando videojuegos como con mi familia..", name: 'DFVG_5', labels: likert_scale_emotions},
+        {prompt: "Socializo fácilmente con personas fuera de la virtualidad de un videojuego..", name: 'DFVG_6', labels: likert_scale_emotions},
+        {prompt: "Equilibro bien el tiempo de sueño con mis ganas de continuar jugando..", name: 'DFVG_7', labels: likert_scale_emotions},
+        {prompt: "Duermo la cantidad adecuada de horas, sin que el juego interfiera..", name: 'DFVG_8', labels: likert_scale_emotions},
+        {prompt: "Mi desempeño en la escuela/trabajo no se ve afectado por el tiempo que paso jugando videojuegos..", name: 'DFVG_9', labels: likert_scale_emotions},
+        {prompt: "Cumplo con mis deberes en el hogar y no me ausento del trabajo/escuela para poder jugar videojuegos..", name: 'DFVG_10', labels: likert_scale_emotions},
+        {prompt: "Las personas cercanas a mí no hacen comentarios sobre el tiempo que paso jugando videojuegos..", name: 'DFVG_11', labels: likert_scale_emotions},
+        {prompt: "Puedo participar en conversaciones sociales sin necesidad de hablar de videojuegos..", name: 'DFVG_12', labels: likert_scale_emotions},
+        {prompt: "Mantengo una relación sentimental saludable sin que mis hábitos de juego sean un problema..", name: 'DFVG_13', labels: likert_scale_emotions},
+        {prompt: "Encuentro interés en diversas actividades de entretenimiento, no solo en jugar videojuegos..", name: 'DFVG_14', labels: likert_scale_emotions}
+        ],
+        randomize_question_order: false,
+        button_label: "Continuar",
+        data:{stimulus:"problems_VG"}
+    };
+
+    timeline.push(problems_VG);
+
+    var likert_scale_PGE = [
+        "Nunca", 
+        "Casi nunca", 
+        "Algunas veces", 
+        "Casi siempre", 
+        "Siempre"
+      ];
+     
+      var PG_exp = {
+        type: jsPsychSurveyLikert,
+        questions: [
+        {prompt: "He escuchado en mi mente sonidos, voces, canciones asociadas a un videojuego. Ejemplo: La voz de un personaje, la tonada de una canción, los efectos de sonido de un videojuego, etc..", name: 'PGE_1', labels: likert_scale_PGE},
+        {prompt: "Cuando deseo concentrarme en una actividad, no puedo hacerlo porque los pensamientos sobre videojuegos siguen apareciendo en mi mente. Ejemplo: no poder escribir un ensayo por no poder dejar de pensar en mi última partida de juego.", name: 'PGE_2', labels: likert_scale_PGE},
+        {prompt: "He visualizado en mi mente imágenes o elementos asociados al videojuego. Ejemplo: Patrones de posible acomodo de un puzzle, imaginar cómo personalizar un personaje, mejorar mi estrategia etc..", name: 'PGE_3', labels: likert_scale_PGE},
+        {prompt: "He malinterpretado o confundido objetos del mundo real o escenarios con algún elemento o escena de un videojuego. Ejemplo: ver pasto alto y pensar que encontraré un Pokémon, caminar por un pasillo oscuro y pensar que una amenaza podría aparecer, etc..", name: 'PGE_4', labels: likert_scale_PGE},
+        {prompt: "He pensado o he querido utilizar elementos o una habilidad de un videojuego en la vida real. Ejemplo: pensar en hacer un viaje rápido, escalar, correr sin cansarme, curarme con un ítem, etc.", name: 'PGE_5', labels: likert_scale_PGE},
+        {prompt: "He sentido sensaciones o movimientos táctiles involuntarios en mi cuerpo. Ejemplo: sentir el mouse, teclado, control bajo mis manos..", name: 'PGE_6', labels: likert_scale_PGE},
+        {prompt: "He escuchado literalmente sonidos, voces o canciones asociadas al videojuego. Ejemplo: caminando a casa escuche la voz de un personaje de un videojuego..", name: 'PGE_7', labels: likert_scale_PGE},
+        {prompt: "He visto literalmente con mis ojos abiertos, elementos asociados al videojuego.", name: 'PGE_8', labels: likert_scale_PGE},
+        {prompt: "He tenido reflejos involuntarios en mis manos o piernas, he dicho una palabra, un diálogo del juego o actuado una escena de este de manera involuntaria. Ejemplo: Mover las manos para accionar un comando, hacer una seña como un personaje del videojuego, etc. Decir la palabra Avancen, Ataquen, etc a un grupo de amigos involuntariamente.", name: 'PGE_9', labels: likert_scale_PGE},
+        {prompt: "He visto literalmente, imágenes, personajes, escenarios del videojuego en el mundo real. Ejemplo: Ver un objeto-logo de un videojuego en el supermercado, la barra de comandos en la pared, un personaje en una multitud, etc..", name: 'PGE_10', labels: likert_scale_PGE},
+        {prompt: "He sentido la necesidad o urgencia de hacer algo en la vida real como normalmente lo haría en el videojuego. Ejemplo: camuflajearse entre la gente, trepar un edificio, golpear a alguien.", name: 'PGE_11', labels: likert_scale_PGE},
+        {prompt: "He utilizado constantemente de manera automática mecánicas de un videojuego en la vida real. Ejemplo: Analizar escenarios estratégicamente, escanear objetos, utilizar diálogos de un personaje, etc..", name: 'PGE_12', labels: likert_scale_PGE}
+       ],
+        randomize_question_order: false,
+        button_label: "Continuar",
+        data:{stimulus:"PG_exp"}
+    };
+
+    timeline.push(PG_exp);
+
+    var likert_scale_DASS = [
+        "No me ha ocurrido", 
+        "Me ha ocurrido un poco", 
+        "Me ha ocurrido bastante", 
+        "Me ha ocurrido mucho"
+      ];
+    
+      var DASS = {
+        type: jsPsychSurveyLikert,
+        questions: [
+        {prompt: "Me ha costado mucho descargar la tensión.", name: 'DASS_1', labels: likert_scale_DASS},
+        {prompt: "Me di cuenta que tenía la boca seca.", name: 'DASS_2', labels: likert_scale_DASS},
+        {prompt: "No podía sentir ningún sentimiento positivo.", name: 'DASS_3', labels: likert_scale_DASS},
+        {prompt: "Se me hizo difícil respirar.", name: 'DASS_4', labels: likert_scale_DASS},
+        {prompt: "Se me hizo difícil tomar la iniciativa para hacer cosas.", name: 'DASS_5', labels: likert_scale_DASS},
+        {prompt: "Reaccioné exageradamente en ciertas situaciones.", name: 'DASS_6', labels: likert_scale_DASS},
+        {prompt: "Sentí que mis manos temblaban.", name: 'DASS_7', labels: likert_scale_DASS},
+        {prompt: "He sentido que estaba gastando una gran cantidad de energía.", name: 'DASS_8', labels: likert_scale_DASS},
+        {prompt: "Estaba preocupado por situaciones en las cuales podía tener pánico o en las que podría hacer el ridículo.", name: 'DASS_9', labels: likert_scale_DASS},
+        {prompt: "He sentido que no había nada que me ilusionara.", name: 'DASS_10', labels: likert_scale_DASS},
+        {prompt: "Me he sentido inquieto.", name: 'DASS_11', labels: likert_scale_DASS},
+        {prompt: "Se me hizo difícil relajarme.", name: 'DASS_12', labels: likert_scale_DASS},
+        {prompt: "Me sentí triste y deprimido.", name: 'DASS_13', labels: likert_scale_DASS},
+        {prompt: "No toleré nada que no me permitiera continuar con lo que estaba haciendo.", name: 'DASS_14', labels: likert_scale_DASS},
+        {prompt: "Sentí que estaba al punto de pánico.", name: 'DASS_15', labels: likert_scale_DASS},
+        {prompt: "No me pude entusiasmar por nada.", name: 'DASS_16', labels: likert_scale_DASS},
+        {prompt: "Sentí que valía muy poco como persona.", name: 'DASS_17', labels: likert_scale_DASS},
+        {prompt: "He tendido a sentirme enfadado con facilidad.", name: 'DASS_18', labels: likert_scale_DASS},
+        {prompt: "Sentí los latidos de mi corazón a pesar de no haber hecho ningún esfuerzo físico.", name: 'DASS_19', labels: likert_scale_DASS},
+        {prompt: "Tuve miedo sin razón.", name: 'DASS_20', labels: likert_scale_DASS},
+        {prompt: "Sentí que la vida no tenía ningún sentido.", name: 'DASS_21', labels: likert_scale_DASS},
+ ],
+        randomize_question_order: false,
+        button_label: "Continuar",
+        data:{stimulus:"DASS"}
+    };
+
+    timeline.push(DASS);
+
+    const save_data1 = {
+        type: jsPsychPipe,
+        action: "save",
+        experiment_id: "Pchavs",
+        filename: `${subject_id}_block1.csv`,
+        data_string: ()=>jsPsych.data.get().csv()
+    };
+
+    timeline.push(save_data1);
+
+    timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: false
+    });
+
+    var end_exp = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<img src="IMG/logos.svg" style = "max-width:100%; height:auto;"></img><p style= "font-size:30px;"><strong>¡Muchas gracias por participar!</strong></p><p style= "font-size:20px;">Cualquier duda o aclaración puede comunicarse con el Dr. Luis Llamas Alonso al correo electronico: webexperimentsunam@gmail.com.</p>'+
+        '<strong><p> Puede cerrar el navegador una vez que haya enviado sus respuestas</p></strong>',
+        choices: ['Enviar respuestas'],
+        data:{stimulus:"Ending"}
+    }
+
+    timeline.push(end_exp);
+    
+    var preload = {
+        type: jsPsychPreload,
+        auto_preload: true
+    }
+
+    jsPsych.run(timeline); 
+  </script>
+</html>
