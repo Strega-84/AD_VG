@@ -76,7 +76,16 @@
     }
 
     timeline.push(consent); 
-   
+
+    var email = {
+  type: jsPsychSurveyText,
+  questions: [
+    {prompt: 'Correo electrónico'}
+    ]
+    }
+
+    timeline.push(email);
+    
     var birthdate = {
         type: jsPsychSurveyHtmlForm,
         preamble: 'Fecha de nacimiento:',
@@ -86,15 +95,6 @@
     }
 
     timeline.push(birthdate); 
-    
-    var email = {
-  type: jsPsychSurveyText,
-  questions: [
-    {prompt: 'Correo electrónico'}
-    ]
-    }
-
-    timeline.push(email);
 
     var demo_mex = {
         type: jsPsychSurveyMultiChoice,
