@@ -247,9 +247,9 @@
 
     var horuso = {
         type: jsPsychSurveyText,
-        preamble: 'Si gustas recibir tus resultados interpretados con su grupo de referencia anota tu correo y solicitalos al correo: strejo@uabc.edu.mx:',
+        preamble: 'Considerando sólo los últimos 6 meses, en una semana rutinaria ¿Aproximadamente cuántas horas a la semana sueles jugar cualquiera de los videojuegos mencionados? "Proporciona sólo dígitos" (ej. 4, 13, 20, 40):',
         questions: [
-        {prompt: 'Correo electrónico'}
+        {prompt: 'horas de juevo semanal'}
         ]
         on_finish: function() {
             var data = jsPsych.data.get().last(1).values()[0];
@@ -257,7 +257,9 @@
                 jsPsych.endExperiment('El experimento finalizó porque no aceptó los términos de participación. Puede cerrar el navegador.');
             }
         }  
+          data:{stimulus: "horuso"}
     }
+    
 
     timeline.push(horuso); 
     
