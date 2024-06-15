@@ -227,7 +227,7 @@
       {
       prompt: "¿Qué tipo de videojugador te consideras? ", 
       name: 'tipoVG', 
-      options: ['Jugador casual/ocio (ej. Me gusta jugar videojuegos, pero tengo otros intereses. Además, mi tiempo es algo limitado).', 'Jugador social: (ej. Juego videojuegos únicamente cuando alguien me invita o cuando quiere pasar el tiempo con amigos en reuniones sociales)', 'Jugador intermedio (ej. Juego diferentes géneros de videojuegos de manera entusiasta, sin embargo, no juego tantas horas o en altas dificultades como lo hacen los videojugadores apasionados. Disfruto los videojuegos, pero puede que no termine cada título que empiece).', 'Jugador apasionado (ej. Paso una cantidad amplia de tiempo jugando videojuegos. Me gusta buscar las noticias más nuevas y actualizaciones en la industria de los videojuegos. Tengo una buena PC/Consola hecha especialmente para jugar. Me gusta ahorrar dinero para gastar en artículos de videojuegos).', 'Jugador profesional (ej. Me gusta jugar videojuegos constantemente como un trabajo de tiempo completo, mi objetivo principal es participar en torneos oficiales para ganar reputación y dinero).'], 
+      options: ['<strong>Jugador casual/ocio</strong> (ej. Me gusta jugar videojuegos, pero tengo otros intereses. Además, mi tiempo es algo limitado).', '<strong>Jugador social</strong>: (ej. Juego videojuegos únicamente cuando alguien me invita o cuando quiere pasar el tiempo con amigos en reuniones sociales)', '<strong>Jugador intermedio</strong> (ej. Juego diferentes géneros de videojuegos de manera entusiasta, sin embargo, no juego tantas horas o en altas dificultades como lo hacen los videojugadores apasionados. Disfruto los videojuegos, pero puede que no termine cada título que empiece).', '<strong>Jugador apasionado</strong> (ej. Paso una cantidad amplia de tiempo jugando videojuegos. Me gusta buscar las noticias más nuevas y actualizaciones en la industria de los videojuegos. Tengo una buena PC/Consola hecha especialmente para jugar. Me gusta ahorrar dinero para gastar en artículos de videojuegos).', '<strong>Jugador profesional</strong> (ej. Me gusta jugar videojuegos constantemente como un trabajo de tiempo completo, mi objetivo principal es participar en torneos oficiales para ganar reputación y dinero).'], 
       required: true
       },        
     ],
@@ -235,6 +235,17 @@
 
     timeline.push(demovar);
     
+    var EresVG = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus:'<p>1.	¿Consideras que eres un videojugador/a? (Entendemos por videojugador/a a cualquier persona que juega algún tipo de videojuego, ya sea en consola, celular, computadora, y sin importar el tipo de juego, como, por ejemplo: FIFA, Call of Duty, Candy Crush, Minecraft, Fortnite, League of Legends, sudoku, juegos mentales, entre otros).</p>',
+        choices: ['Si', 'No'],
+      },
+      data:{stimulus: "EresVG"}
+    }
+
+    timeline.push(EresVG);
+
+   
     var likert_scale_emotions = [
         "Mucho menos que el promedio", 
         "Menos que el promedio", 
