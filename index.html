@@ -97,60 +97,58 @@
 
     timeline.push(birthdate); 
 
-    var demo_mex = {
-        type: jsPsychSurveyMultiChoice,
-        questions: [{
-            prompt: "¿Eres mexicano?", 
-            name: 'Mex', 
-            options: ['Sí', 'No'], 
-            required: true
-        }],
-        button_label: "Continuar",
-        data:{stimulus:"Mex"}
-    }
-
-  
-    timeline.push(demo_mex);
-    
-    var demo_esp = {
-        type: jsPsychSurveyMultiChoice,
-        questions: [{
-            prompt: "¿Tu lengua materna es el español?", 
-            name: 'Esp', 
-            options: ['Sí', 'No'], 
-            required: true
-        }],
-        button_label: "Continuar",
-        data:{stimulus:"Esp"}
-    }
-
-    timeline.push(demo_esp); 
-
-
-    var demo_sex = {
+    var demo_sex1 = {
         type: jsPsychSurveyMultiChoice,
         questions: [{
             prompt: "Sexo biológico:", 
-            name: 'Sex', 
-            options: ['Hombre', 'Mujer'], 
+            name: 'Sex1', 
+            options: ['Hombre', 'Mujer', 'Prefiero no decirlo'], 
             required: true
         }],
         button_label: "Continuar",
-        data:{stimulus:"Sex"}
+        data:{stimulus:"Sex1"}
     }
 
-    timeline.push(demo_sex); 
+    timeline.push(demo_sex1); 
+    
+    var demo_sex2 = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "Género de identidad:", 
+            name: 'Sex2', 
+            options: ['Hombre', 'Mujer', 'No binario', 'Prefiero no decirlo'], 
+            required: true
+        }],
+        button_label: "Continuar",
+        data:{stimulus:"Sex2"}
+    }
 
-    var likert_scale_emotions = [
-        "Mucho menos que el promedio", 
-        "Menos que el promedio", 
-        "Poco menos que el promedio", 
-        "Igual que el promedio", 
-        "Poco más que el promedio",
-        "Más que el promedio",
-        "Mucho más que el promedio"
-    ];
+    timeline.push(demo_sex2);
 
+     var demo_sex3 = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "Preferencia sexual:", 
+            name: 'Sex3', 
+            options: ['Hombre', 'Mujer', 'Ambos', 'Ninguno', 'Prefiero no decirlo'], 
+            required: true
+        }],
+        button_label: "Continuar",
+        data:{stimulus:"Sex3"}
+    }
+
+    timeline.push(demo_sex3);
+    
+    var pais = {
+  type: jsPsychSurveyText,
+  preamble: 'Anota tu país de procedencia',
+  questions: [
+    {prompt: 'País de procedencia'}
+    ]
+    }
+
+    timeline.push(pais);  
+    
     var ses = {
         type: jsPsychSurveyMultiChoice,
         questions: [
@@ -211,6 +209,42 @@
 
     timeline.push(ses);
 
+    var demovar = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+      {
+      prompt: "Estado civil", 
+      name: 'edocivil', 
+      options: ['Soltera/o', 'Casada/o', 'Divorciada/o', 'Viuda/o'], 
+      required: true
+      }, 
+      {
+      prompt: "¿Cuál es tu opinión general de los videojuegos?", 
+      name: 'opinVG', 
+      options: ['Son improductivos, una pérdida de tiempo.', 'No me interesan.', 'Un entretenimiento más de varios que tengo.', 'Mi fuente principal de entretenimiento.', 'Son una parte fundamental en mi vida.'], 
+      required: true
+      },   
+      {
+      prompt: "¿Qué tipo de videojugador te consideras? ", 
+      name: 'tipoVG', 
+      options: ['Jugador casual/ocio (ej. Me gusta jugar videojuegos, pero tengo otros intereses. Además, mi tiempo es algo limitado).', 'Jugador social: (ej. Juego videojuegos únicamente cuando alguien me invita o cuando quiere pasar el tiempo con amigos en reuniones sociales)', 'Jugador intermedio (ej. Juego diferentes géneros de videojuegos de manera entusiasta, sin embargo, no juego tantas horas o en altas dificultades como lo hacen los videojugadores apasionados. Disfruto los videojuegos, pero puede que no termine cada título que empiece).', 'Jugador apasionado (ej. Paso una cantidad amplia de tiempo jugando videojuegos. Me gusta buscar las noticias más nuevas y actualizaciones en la industria de los videojuegos. Tengo una buena PC/Consola hecha especialmente para jugar. Me gusta ahorrar dinero para gastar en artículos de videojuegos).', 'Jugador profesional (ej. Me gusta jugar videojuegos constantemente como un trabajo de tiempo completo, mi objetivo principal es participar en torneos oficiales para ganar reputación y dinero).'], 
+      required: true
+      },        
+    ],
+    };    
+
+    timeline.push(demovar);
+    
+    var likert_scale_emotions = [
+        "Mucho menos que el promedio", 
+        "Menos que el promedio", 
+        "Poco menos que el promedio", 
+        "Igual que el promedio", 
+        "Poco más que el promedio",
+        "Más que el promedio",
+        "Mucho más que el promedio"
+    ];
+    
     var reasons_motivation = {
         type: jsPsychSurveyLikert,
         questions: [
