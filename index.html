@@ -246,19 +246,21 @@
     timeline.push(EresVG);
 
     var horuso = {
-        type: jsPsychHtmlButtonResponse,
-        stimulus:'<p>Manifiesto mi libre decisión, consciente y voluntaria de aceptar participar en esta investigación.</p>',
-        choices: ['0', '1', '2', '0', '1', '2', ],
+        type: jsPsychSurveyText,
+        preamble: 'Si gustas recibir tus resultados interpretados con su grupo de referencia anota tu correo y solicitalos al correo: strejo@uabc.edu.mx:',
+        questions: [
+        {prompt: 'Correo electrónico'}
+        ]
         on_finish: function() {
             var data = jsPsych.data.get().last(1).values()[0];
-            if(data.response== 1){
+            if(data.response== 0){
                 jsPsych.endExperiment('El experimento finalizó porque no aceptó los términos de participación. Puede cerrar el navegador.');
             }
-      },
-      data:{stimulus:"Informed consent"}
+        }  
     }
 
-    timeline.push(consent); 
+    timeline.push(horuso); 
+    
     var likert_scale_emotions = [
         "Mucho menos que el promedio", 
         "Menos que el promedio", 
