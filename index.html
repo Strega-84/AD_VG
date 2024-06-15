@@ -235,13 +235,17 @@
     timeline.push(demovar);
     
     var EresVG = {
-        type: jsPsychHtmlButtonResponse,
-        stimulus:'<p>1.	¿Consideras que eres un videojugador/a? (Entendemos por videojugador/a a cualquier persona que juega algún tipo de videojuego, ya sea en consola, celular, computadora, y sin importar el tipo de juego, como, por ejemplo: FIFA, Call of Duty, Candy Crush, Minecraft, Fortnite, League of Legends, sudoku, juegos mentales, entre otros).</p>',
-        choices: ['Si', 'No'],
-      },
-      data:{stimulus: "EresVG"}
-    };
-
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "¿Consideras que eres un videojugador/a? (Entendemos por videojugador/a a cualquier persona que juega algún tipo de videojuego, ya sea en consola, celular, computadora, y sin importar el tipo de juego, como, por ejemplo: FIFA, Call of Duty, Candy Crush, Minecraft, Fortnite, League of Legends, sudoku, juegos mentales, entre otros).", 
+            name: 'EresVG', 
+            options: ['Si', 'No'], 
+            required: true
+        }],
+        button_label: "Continuar",
+        data:{stimulus:"EresVG"}
+    }
+    
     timeline.push(EresVG);
     
     var likert_scale_emotions = [
