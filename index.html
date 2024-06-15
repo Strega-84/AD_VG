@@ -92,7 +92,7 @@
         preamble: 'Fecha de nacimiento:',
         html: '<p><input type="date" id="dob_1" name="dob_2" value="2000-02-29" required></p>',
         button_label: "Continuar",
-        data:{stimulus:"Birthday"} 
+        data:{stimulus: "Birthday"} 
     }
 
     timeline.push(birthdate); 
@@ -245,7 +245,20 @@
 
     timeline.push(EresVG);
 
-   
+    var horuso = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus:'<p>Manifiesto mi libre decisión, consciente y voluntaria de aceptar participar en esta investigación.</p>',
+        choices: ['0', '1', '2', '0', '1', '2', ],
+        on_finish: function() {
+            var data = jsPsych.data.get().last(1).values()[0];
+            if(data.response== 1){
+                jsPsych.endExperiment('El experimento finalizó porque no aceptó los términos de participación. Puede cerrar el navegador.');
+            }
+      },
+      data:{stimulus:"Informed consent"}
+    }
+
+    timeline.push(consent); 
     var likert_scale_emotions = [
         "Mucho menos que el promedio", 
         "Menos que el promedio", 
