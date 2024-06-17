@@ -379,7 +379,7 @@
     
     var reasons_motivation = {
         type: jsPsychSurveyLikert,
-        preamble: '<strong>Razones y propósitos para jugar videojuegos</strong><br><strong>Instrucciones para la Escala de Uso de Videojuegos.</strong><br>Propósito: Esta escala está diseñada para identificar tus emociones, estados de ánimo, razones y motivaciones al jugar videojuegos. Queremos conocer tus experiencias emocionales y cómo influyen en tu disfrute y compromiso con este tipo de entretenimiento. Indicaciones: A continuación, encontrarás una serie de afirmaciones sobre tus razones y motivaciones con los videojuegos. Para cada afirmación, ¿Cómo te calificarías a ti mismo en comparación con otros adultos de tu edad en cada una de las afirmaciones que se enumeran a continuación? Por favor, elije la mejor puntuación basándose en su experiencia. <br> <strong>Ejemplo:</strong> Si la afirmación es "Juego videojuegos para socializar con amigos y/o conocer gente nueva" y el principal motivo para que tu jueges es socializar, podrías marcar "Más que el promedio" o "Mucho más que el promedio".',
+        preamble: '<strong>Razones y propósitos para jugar videojuegos</strong><br><strong>Instrucciones para la Escala de Uso de Videojuegos.</strong><br>Propósito: Esta escala está diseñada para identificar tus emociones, estados de ánimo, razones y motivaciones al jugar videojuegos. Queremos conocer tus experiencias emocionales y cómo influyen en tu disfrute y compromiso con este tipo de entretenimiento. Indicaciones: A continuación, encontrarás una serie de afirmaciones sobre tus razones y motivaciones con los videojuegos. Para cada afirmación, ¿Cómo te calificarías a ti mismo en comparación con otros adultos de tu edad en cada una de las afirmaciones que se enumeran a continuación? Por favor, elije la mejor puntuación basándose en su experiencia. <br> <strong>Ejemplo:</strong> Si la afirmación es "Juego videojuegos para socializar con amigos y/o conocer gente nueva" y el principal motivo para que tu jueges es socializar, podrías marcar "Más que el promedio" o "Mucho más que el promedio". ',
         questions: [
         {prompt: "Juego videojuegos para socializar con amigos y/o conocer gente nueva.", name: 'E_1', labels: likert_scale_emotions},
         {prompt: "Cuando dispongo de tiempo libre, me inclino a jugar videojuegos.", name: 'E_2', labels: likert_scale_emotions},
@@ -407,7 +407,7 @@
 
     var problems_VG = {
         type: jsPsychSurveyLikert,
-        preamble: '<strong>Dificultades y fortalezas en torno a la práctica de videojuegos</strong><br><strong>Instrucciones</strong><br>Propósito: Esta escala está diseñada para evaluar tu comportamiento y actitudes hacia el uso de videojuegos, considerando tanto aspectos positivos como negativos. Queremos entender cómo el uso de videojuegos se integra en tu vida diaria. Indicaciones: A continuación, encontrarás una serie de afirmaciones sobre tus hábitos y comportamientos relacionados con los videojuegos. Para cada afirmación, ¿Cómo te calificarías a ti mismo en comparación con otros adultos de tu edad en cada una de las afirmaciones que se enumeran a continuación? Por favor, elije la mejor puntuación basándose en tu experiencia y comportamiento. <strong>Ejemplo:</strong> Si la afirmación es "Juego videojuegos por el tiempo que tenía planeado" y tiendes a jugar mucho más tiempo del que inicialmente planeas en comparación con adultos de tu misma edad, podrías marcar "Menos que el promedio" o "Mucho menos que el promedio".',
+        preamble: '<strong>Dificultades y fortalezas en torno a la práctica de videojuegos</strong><br><strong>Instrucciones</strong><br>Propósito: Esta escala está diseñada para evaluar tu comportamiento y actitudes hacia el uso de videojuegos, considerando tanto aspectos positivos como negativos. Queremos entender cómo el uso de videojuegos se integra en tu vida diaria. Indicaciones: A continuación, encontrarás una serie de afirmaciones sobre tus hábitos y comportamientos relacionados con los videojuegos. Para cada afirmación, ¿Cómo te calificarías a ti mismo en comparación con otros adultos de tu edad en cada una de las afirmaciones que se enumeran a continuación? Por favor, elije la mejor puntuación basándose en tu experiencia y comportamiento. <strong>Ejemplo:</strong> Si la afirmación es "Juego videojuegos por el tiempo que tenía planeado", pero tu tiendes a jugar mucho más tiempo de lo que inicialmente tenías planead en comparación con adultos de tu misma edad, podrías marcar "Menos que el promedio" o "Mucho menos que el promedio". Ya que respetaste en menor medida tu planeación, en comparación con los adultos que tu conoces.',
         questions: [
         {prompt: "Juego videojuegos por el tiempo que tenía planeado para la sesión..", name: 'DFVG_1', labels: likert_scale_emotions},
         {prompt: "Puedo terminar una sesión de juego en el momento que decido..", name: 'DFVG_2', labels: likert_scale_emotions},
@@ -536,7 +536,16 @@
     };
 
     timeline.push(SWAN);
-    
+
+    var likert_scale_MCH = [
+        "Nunca", 
+        "Una o dos veces", 
+        "Más o menos una vez por semana", 
+        "Dos o tres veces por semana",
+        "Casi todos los días",
+        "Todos los días"
+      ];
+
     var MCH = {
         type: jsPsychSurveyLikert,
         preamble: '<strong>Continuo de Salud Mental (MHC-SF)</strong><br><strong>Instrucciones</strong><br>Propósito: Esta escala está diseñada para identificar tan bien te sientes contigo misma(o). Indicaciones: Responda a las siguientes preguntas sobre cómo se ha sentido durante el último mes. Marque la casilla que mejor represente la frecuencia con la que ha experimentado o sentido lo siguiente. <strong>Ejemplo:</strong> Si la afirmación es "Feliz" y tiendes a sentirte feliz frecuentemente, podrías marcar "Casi todos los días" o "Todos los días".<br> <strong>¿Cómo te has sentido durante el último mes?</strong></br>',
@@ -564,7 +573,7 @@
     };
 
     timeline.push(MCH);
-    
+
     const save_data1 = {
         type: jsPsychPipe,
         action: "save",
