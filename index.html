@@ -140,6 +140,32 @@
     }
 
     timeline.push(demo_sex3);
+
+     var esco_1 = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [{
+            prompt: "Indica tu máximo grado de estudios alcanzado (títulado):", 
+            name: 'esco_1', 
+            options: ['Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Posgrado'], 
+            required: true
+        }],
+        button_label: "esco_1",
+        data:{stimulus:"Sex3"}
+    }
+
+    timeline.push(esco_1);
+
+    var esco_2 = {
+  type: jsPsychSurveyText,
+  preamble: 'Anota tu escolaridad en número de años (ejemplo: si cuentas con primaria concluida escribe 6, si cuentas ocn secundaria escribe 9.',
+  questions: [
+    {prompt: 'Número de años de estudio'}
+    
+    ],
+    required: true
+    }
+
+    timeline.push(esco_2);  
     
     var pais = {
   type: jsPsychSurveyText,
@@ -158,7 +184,7 @@
         questions: [
             {
             prompt: "Pensando en el jefe o jefa de hogar, ¿cuál fue el último año de estudios que aprobó en la escuela? Si tú eres el jefé o jefa de hogar, repite tu escolaridad", 
-            name: 'socio_schooling', 
+            name: 'socio_esco', 
             options: ['No estudio',
                     'Primaria Incompleta', 
                     'Primaria Incompleta', 
@@ -190,7 +216,7 @@
             },
             {
             prompt: "Sin tomar en cuenta la conexión móvil que pudiera tener desde algún celular ¿este hogar cuenta con internet?", 
-            name: 'socio_bano', 
+            name: 'socio_int', 
             options: ['No tiene', 'Sí tiene'], 
             required: true
             },
