@@ -287,12 +287,7 @@
       {prompt: 'Número:', name: 'numero'}
     ],
     required: true,
-    on_finish: function(data) {
-      var response = data.response.numero;
-      if(response == '0'){
-        jsPsych.endExperiment('El experimento finalizó porque no cuenta con horas de juego con videojuegos. Puede cerrar el navegador.');
-      }
-    },
+
     data: {stimulus: "numero"}
   };
 
